@@ -1,23 +1,59 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import TableVersion from './components/table';
+import TableProducts from './components/table_products';
+import ProductApi from './api/pruductApi';
+import { useDispatch } from 'react-redux';
+import { addNewHobby } from './actions/Hobby';
 
 function App() {
+
+  const a = 0;
+  
+  useEffect(() => {
+    
+    const fetchProductList = async () => {
+
+      try {
+        
+        const reponse = await ProductApi.getAll();
+        dispatch(addNewHobby(reponse));
+     
+      } catch (error) {
+        console.log(error);
+      }
+    }
+   
+    fetchProductList();
+  }, [])
+
+  const dispatch = useDispatch();
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div  className="col-3 function">
+        <TableVersion />
+      </div>
+      <div className = "col-9">
+  
+        <br></br>
+
+        <div className = "add-work"> 
+          <button 
+            className="btn">
+            <i className="fa fa-plus">
+            </i>
+            Thêm công việc
+          </button>
+        </div>
+
+        <br></br>
+        <br></br>
+
+        <TableProducts 
+        />
+      </div>
     </div>
   );
 }
