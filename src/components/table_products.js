@@ -1,8 +1,8 @@
 import React from 'react';
 import InformationProducts from './informationProducts';
 
-
 function table_products() {
+
     return (
         <table className="table table-hover">
             <thead>
@@ -19,7 +19,8 @@ function table_products() {
                 <th>Thực hiện</th>
                 </tr>
             </thead>
-           <InformationProducts />
+           <InformationProducts
+            />
         </table>
     );
 }

@@ -24,10 +24,25 @@ const hobbyReducer = (state = initialState , action) => {
 
             case 'Add_Products' : {
 
+                  const newList = [...state.list];
+                  
+                  newList.push(action.addload);
                   return {
 
                         ...state,
-                        list :[...state.list, ...action.addload],
+                        list :newList,
+                  };
+            }
+
+            case 'DeleteProducts' : {
+
+                  const newList = [...state.list];
+                  
+                  newList.push(action.deleteload);
+                  return {
+
+                        ...state,
+                        list :newList,
                   };
             }
 

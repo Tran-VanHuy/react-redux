@@ -24,3 +24,13 @@ export const AddProducts = (hobby) => {
             addload : hobby,
       }
 }
+
+export const DeleteProducts = (hobby) => {
+
+      return {
+
+            type : 'DELETE_PRODUCTS',
+            deleteload : hobby,
+      }
+}
+

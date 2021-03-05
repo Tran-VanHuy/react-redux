@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios from 'axios';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddProducts } from "../actions/Hobby";
 
+const randomId = () => {
+
+    return 1000 + Math.trunc((Math.random() * 9000));
+}
 function Table(props) {
 
     const [title, setTitle] = useState('');
@@ -10,9 +14,10 @@ function Table(props) {
     const [price, setPrice] = useState();
 
     const [content, setContent] = useState();
-    const action = useSelector(state => state.hobby.list);
-
-    function createProducts(data, callback){
+    
+    const dispatch = useDispatch()
+    
+    const CreateProducts = () => {
 
         const user = {
 
@@ -20,11 +25,13 @@ function Table(props) {
             price : price,
             content : content,
           };
-          
-       return  axios.post(`https://6013b47c54044a00172ddc4a.mockapi.io/productName`,  user )
-          .then(function(respone){
 
-                 return action;
+          dispatch(AddProducts(user));
+        
+       return  axios.post(`https://6013b47c54044a00172ddc4a.mockapi.io/productName`,  user )
+          .then(res => {
+
+                
             }
           )
     }
@@ -34,7 +41,7 @@ function Table(props) {
         e.preventDefault();
 
 
-        createProducts(e);
+        CreateProducts(e);
       
     }
 

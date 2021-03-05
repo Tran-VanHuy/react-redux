@@ -1,48 +1,51 @@
 
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch, connect } from 'react-redux';
 import axios from 'axios';
-
+import { useState, useEffect } from 'react';
 
 
 
 function InformationProducts() {
+    
+    const selecter = useSelector(state => state.hobby.list);
 
+    const  deleteProduct = (id) => {
 
- 
-    const a = useSelector(state => state.hobby.list);
-   
-
-    function deleteProduct(id){
-
-        alert('Bạn có muốn xóa sp không')
-
+        if(id){
             axios.delete(`https://6013b47c54044a00172ddc4a.mockapi.io/productName/${id}`)
             .then(res => {
-              console.log(res);
-              console.log(res.data);
+                    
             }) 
+        }  
     }
-
 
     return (
         <tbody>
-            {a?.map((item,index) => 
+            {selecter?.map((hobby,index) => 
 
                 <tr key = {index} >
                 <td> {index}</td>
-                <td>{item.title}</td>
-                <td>{item.price}</td>
-                <td>{item.content}</td>
+                <td>{hobby.title}</td>
+                <td>{hobby.price}</td>
+                <td>{hobby.content}</td>
                 <td>
-                    <button onClick = {() => {deleteProduct(item.id)} } >Xóa</button>
+                    <button onClick = {() => {deleteProduct(hobby.id)} } >Xóa</button>
                     <button>Sửa</button>
                 </td>
             </tr>
+            
             ) }
         </tbody>
-
-       
     );
 }
 
-export default InformationProducts;
+function mapDispatchToProps(dispatch) {
+    
+    return {
+  
+      onGetUsers : () => {dispatch({type : 'GET_REMOTE_SAGA'})},
+      onAddRemoteUser: (user) => {dispatch({type : 'ADD_REMOTE_USER', addload: user})}
+    }
+  }
+
+export default connect(mapDispatchToProps)(InformationProducts);

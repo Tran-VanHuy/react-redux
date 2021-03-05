@@ -3,13 +3,11 @@ import './App.css';
 import TableVersion from './components/table';
 import TableProducts from './components/table_products';
 import ProductApi from './api/pruductApi';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { addNewHobby } from './actions/Hobby';
 
 function App() {
 
-  const a = 0;
-  
   useEffect(() => {
     
     const fetchProductList = async () => {
@@ -18,6 +16,7 @@ function App() {
         
         const reponse = await ProductApi.getAll();
         dispatch(addNewHobby(reponse));
+       
      
       } catch (error) {
         console.log(error);
@@ -29,6 +28,7 @@ function App() {
 
   const dispatch = useDispatch();
 
+ 
   return (
 
     <div className="App">
@@ -58,4 +58,7 @@ function App() {
   );
 }
 
-export default App;
+
+
+
+export default (App);
